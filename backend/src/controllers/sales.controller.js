@@ -6,6 +6,13 @@ const getSales = async (_req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getSaleById = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await salesService.saleById(id);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   getSales,
+  getSaleById,
 };
