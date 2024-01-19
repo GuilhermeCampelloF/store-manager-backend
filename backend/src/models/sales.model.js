@@ -8,7 +8,7 @@ const getAllSales = async () => {
   AS productId,
   quantity
   FROM sales AS s 
-  INNER JOIN sales_products AS sp WHERE s.id = sp.sale_id`);
+  INNER JOIN sales_products AS sp ON s.id = sp.sale_id`);
   return sales;
 };
 

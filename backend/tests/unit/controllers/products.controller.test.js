@@ -14,7 +14,7 @@ const { allProductsReturn,
   filteredProductFromModel,
 } = require('../mocks/products.mock');
 
-describe('Testes para a camada Controllers', function () {
+describe('Testes para a camada Controllers - PRODUCTS CONTROLLERS', function () {
   it('Testa o retorno de todos os produtos corretamente - status 200', async function () {
     sinon.stub(productsService, 'allProducts').resolves(allProductsReturn);
     const req = {};

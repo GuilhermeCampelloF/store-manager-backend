@@ -8,7 +8,7 @@ const { productsFromModel,
   filteredProductFromDb,
 } = require('../mocks/products.mock');
 
-describe('Testes para a camada Services', function () {
+describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
   it('Testa o retorno de todos os produtos corretamente', async function () {
     sinon.stub(productsModel, 'getAllProducts').resolves(productsFromDb);
     const { status, data } = await productsService.allProducts();
