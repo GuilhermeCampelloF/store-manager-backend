@@ -12,7 +12,15 @@ const getProductById = async (id) => {
   return product;
 };
 
+// CADASTRAR PRODUTOS
+const insertProducts = async (product) => {
+  const [{ insertId }] = await
+  connection.execute('INSERT INTO products (name) VALUE (?)', [product]);
+  return insertId;
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
+  insertProducts,
 };
