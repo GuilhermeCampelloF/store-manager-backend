@@ -53,6 +53,11 @@ const filteredProductNotFound = {
   data: { message: 'Product not found' },
 };
 
+const newProduct = {
+  id: 4,
+  name: 'New product',
+};
+
 module.exports = {
   productsFromDb,
   productsFromModel,
@@ -61,4 +66,5 @@ module.exports = {
   allProductsReturn,
   filteredProductReturn,
   filteredProductNotFound,
+  newProduct,
 };

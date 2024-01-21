@@ -30,7 +30,7 @@ describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
     expect(status).to.equal('NOT_FOUND');
     expect(data).to.deep.equal({ message: 'Product not found' });
   });
-  
+
   afterEach(function () {
     sinon.restore();
   });
