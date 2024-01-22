@@ -27,6 +27,14 @@ describe('Testes para a camada Models - SALES MODELS', function () {
     expect(sale).to.deep.equal(newSaleResultMock);
   });
 
+  it('Testa se é retornado uma mensagem de erro caso id seja inválido', async function () {
+    sinon.stub(connection, 'execute').resolves([[]]);
+    const inputData = 999;
+    const sale = await salesModel.getSaleById(inputData);
+    expect(sale).to.be.an('array');
+    expect(sale).to.deep.equal([]);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

@@ -1,4 +1,5 @@
 const { salesModel } = require('../models/index');
+const validators = require('./validations/validationsInputValues');
 
 const allSales = async () => {
   const sales = await salesModel.getAllSales();
@@ -13,11 +14,24 @@ const saleById = async (id) => {
   return { status: 'SUCCESSFUL', data: sale }; 
 };
 
-const insertSale = async (sale) => {
-  if (!sale || sale.length === 0) {
-    return { status: 'BAD_REQUEST', data: { message: 'Invalid sale value' } };
+const insertSale = async (sales) => {
+  const validationError = validators.validateNewSale(sales);
+  if (validationError) {
+    return { status: validationError.status, data: { message: validationError.message } };
   }
-  const newSale = await salesModel.insertSales(sale);
+  try {
+    const promises = sales.map(async (product) => {
+      const { productId } = product;
+      const productFromModel = await saleById(productId);
+      if (productFromModel.status === 'NOT_FOUND') {
+        throw new Error('Product not found');
+      }
+    });
+    await Promise.all(promises);
+  } catch (error) {
+    return { status: 'NOT_FOUND', data: { message: error.message } };
+  }
+  const newSale = await salesModel.insertSales(sales);
   return { status: 'CREATED', data: newSale };
 };
 
@@ -26,3 +40,7 @@ module.exports = {
   saleById,
   insertSale,
 };
+
+// if (!sale || sale.length === 0) {
+//   return { status: 'BAD_REQUEST', data: { message: 'Invalid sale value' } };
+// }
