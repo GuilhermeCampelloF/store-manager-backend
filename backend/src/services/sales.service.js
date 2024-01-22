@@ -13,7 +13,16 @@ const saleById = async (id) => {
   return { status: 'SUCCESSFUL', data: sale }; 
 };
 
+const insertSale = async (sale) => {
+  if (!sale || sale.length === 0) {
+    return { status: 'BAD_REQUEST', data: { message: 'Invalid sale value' } };
+  }
+  const newSale = await salesModel.insertSales(sale);
+  return { status: 'CREATED', data: newSale };
+};
+
 module.exports = {
   allSales,
   saleById,
+  insertSale,
 };

@@ -33,6 +33,7 @@ describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
     expect(data).to.deep.equal({ message: 'Product not found' });
   });
 
+  // ACREDITO QUE SEJA FALSO POSITIVO
   it('Testa se é possível cadastrar um novo produto', async function () {
     sinon.stub(productsModel, 'insertProducts').resolves(newProductIdFromModel);
     sinon.stub(productsModel, 'getProductById').resolves(newProductMock);
