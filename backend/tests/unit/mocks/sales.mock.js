@@ -1,31 +1,87 @@
+const dateTest = '2024-01-19T12:47:03.000Z';
+
 const salesFromDb = [
   {
     saleId: 1,
-    date: '2024-01-19T12:47:03.000Z',
+    date: dateTest,
     productId: 1,
     quantity: 5,
   },
   {
     saleId: 1,
-    date: '2024-01-19T12:47:03.000Z',
+    date: dateTest,
     productId: 2,
     quantity: 10,
   },
   {
     saleId: 2,
-    date: '2024-01-19T12:47:03.000Z',
+    date: dateTest,
     productId: 3,
     quantity: 15,
   },  
 ];
 
-const filteredSale = [
+const salesFromModel = [
   {
-    date: '2024-01-19T12:47:03.000Z',
+    saleId: 1,
+    date: dateTest,
+    productId: 1,
+    quantity: 5,
+  },
+  {
+    saleId: 1,
+    date: dateTest,
+    productId: 2,
+    quantity: 10,
+  },
+  {
+    saleId: 2,
+    date: dateTest,
+    productId: 3,
+    quantity: 15,
+  },  
+];
+
+const filteredSaleFromDB = [
+  {
+    date: dateTest,
     productId: 3,
     quantity: 15,
   },
 ];
+
+const filteredSaleFromModel = [
+  {
+    date: dateTest,
+    productId: 3,
+    quantity: 15,
+  },
+];
+
+const insertNewSaleMock = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const newSaleResultMock = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ],
+};
 
 const allSalesReturn = {
   status: 'SUCCESSFUL',
@@ -34,7 +90,7 @@ const allSalesReturn = {
 
 const filteredSaleReturn = {
   status: 'SUCCESSFUL',
-  data: filteredSale,
+  data: filteredSaleFromModel,
 };
 
 const filteredSaleNotFound = {
@@ -44,8 +100,12 @@ const filteredSaleNotFound = {
 
 module.exports = {
   salesFromDb,
-  filteredSale,
+  salesFromModel,
+  filteredSaleFromDB,
+  filteredSaleFromModel,
   allSalesReturn,
   filteredSaleReturn,
   filteredSaleNotFound,
+  insertNewSaleMock,
+  newSaleResultMock,
 };
