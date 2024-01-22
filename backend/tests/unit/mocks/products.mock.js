@@ -53,7 +53,13 @@ const filteredProductNotFound = {
   data: { message: 'Product not found' },
 };
 
-const newProduct = {
+const newProductIdFromDb = { 
+  insertId: 4,
+};
+
+const newProductIdFromModel = 4;
+
+const newProductMock = {
   id: 4,
   name: 'New product',
 };
@@ -66,5 +72,7 @@ module.exports = {
   allProductsReturn,
   filteredProductReturn,
   filteredProductNotFound,
-  newProduct,
+  newProductIdFromDb,
+  newProductIdFromModel,
+  newProductMock,
 };

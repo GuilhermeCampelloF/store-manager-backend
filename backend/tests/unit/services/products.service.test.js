@@ -6,6 +6,8 @@ const { productsFromModel,
   filteredProductFromModel,
   productsFromDb,
   filteredProductFromDb,
+  // newProductIdFromModel,
+  // newProductMock,
 } = require('../mocks/products.mock');
 
 describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
@@ -30,6 +32,15 @@ describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
     expect(status).to.equal('NOT_FOUND');
     expect(data).to.deep.equal({ message: 'Product not found' });
   });
+
+  // it('Testa se é possível cadastrar um novo produto', async function () {
+  //   sinon.stub(productsModel, 'insertProducts').resolves(newProductIdFromModel);
+  //   sinon.stub(productsModel, 'getProductById').resolves(newProductMock);
+  //   const inputData = 'New product';
+  //   const { status, data } = await productsService.insertProducts(inputData);
+  //   expect(status).to.equal('CREATED');
+  //   expect(data).to.deep.equal(newProductMock);
+  // });
 
   afterEach(function () {
     sinon.restore();

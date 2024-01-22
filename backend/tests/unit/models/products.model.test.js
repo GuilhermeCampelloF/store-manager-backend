@@ -6,6 +6,8 @@ const { productsFromDb,
   productsFromModel,
   filteredProductFromDb,
   filteredProductFromModel,
+  newProductIdFromDb,
+  newProductIdFromModel,
 } = require('../mocks/products.mock');
 
 describe('Testes para a camada Models - PRODUCTS MODELS', function () {
@@ -22,6 +24,14 @@ describe('Testes para a camada Models - PRODUCTS MODELS', function () {
     const filteredProduct = await productsModel.getProductById(inputData);
     expect(filteredProduct).to.be.an('object');
     expect(filteredProduct).to.deep.equal(filteredProductFromModel);
+  });
+
+  it('Testa se é possível cadastrar um novo produto corretamente', async function () {
+    sinon.stub(connection, 'execute').resolves([newProductIdFromDb]);
+    const inputData = 'New product';
+    const filteredProduct = await productsModel.insertProducts(inputData);
+    expect(filteredProduct).to.be.a('number');
+    expect(filteredProduct).to.deep.equal(newProductIdFromModel);
   });
 
   afterEach(function () {
