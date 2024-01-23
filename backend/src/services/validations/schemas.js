@@ -15,6 +15,13 @@ const newProductSchema = Joi.string().required().min(5).messages({
   'string.min': '"name" length must be at least 5 characters long',
 });
 
+const updateProductSchema = Joi.object({
+  name: Joi.string().required().min(5).messages({
+    'any.required': '"name" is required',
+    'string.min': '"name" length must be at least 5 characters long',
+  }),
+});
+
 const newSaleSchema = Joi.array().items({
   productId: productIdSchema,
   quantity: quantitySchema,
@@ -23,4 +30,5 @@ const newSaleSchema = Joi.array().items({
 module.exports = {
   newProductSchema,
   newSaleSchema,
+  updateProductSchema,
 };

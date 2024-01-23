@@ -24,8 +24,20 @@ const insertProducts = async (product) => {
   return { status: 'CREATED', data: newProductData };
 };
 
+const updateProduct = async (id, name) => {
+  const validationError = validators.validateUpdateProduct({ name });
+  if (validationError) {
+    return { status: validationError.status, data: { message: validationError.message } };
+  }
+  const getProduct = await productsModel.getProductById(id);
+  if (!getProduct) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+  const productToUpdate = await productsModel.updateProducts(id, name);
+  return { status: 'SUCCESSFUL', data: productToUpdate };
+};
+
 module.exports = {
   allProducts,
   productById,
   insertProducts,
+  updateProduct,
 };

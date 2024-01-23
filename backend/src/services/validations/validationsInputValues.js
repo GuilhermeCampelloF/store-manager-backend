@@ -1,7 +1,15 @@
-const { newProductSchema, newSaleSchema } = require('./schemas');
+const { newProductSchema, newSaleSchema, updateProductSchema } = require('./schemas');
 
 const validateNewProduct = (name) => {
   const { error } = newProductSchema.validate(name);
+  if (error) {
+    return { status: error.message.includes('required') ? 'BAD_REQUEST' : 'INVALID_VALUE',
+      message: error.message };
+  }
+};
+
+const validateUpdateProduct = (product) => {
+  const { error } = updateProductSchema.validate(product);
   if (error) {
     return { status: error.message.includes('required') ? 'BAD_REQUEST' : 'INVALID_VALUE',
       message: error.message };
@@ -19,4 +27,5 @@ const validateNewSale = (sale) => {
 module.exports = {
   validateNewProduct,
   validateNewSale,
+  validateUpdateProduct,
 };
