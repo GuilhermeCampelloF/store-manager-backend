@@ -4,6 +4,7 @@ const httpErrorMap = {
   CREATED: 201,
   INVALID_VALUE: 422,
   BAD_REQUEST: 400,
+  NO_CONTENT: 204,
 };
 
 const mapStatusHTTP = (status) => httpErrorMap[status] || 500;
