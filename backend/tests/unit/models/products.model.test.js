@@ -8,6 +8,8 @@ const { productsFromDb,
   filteredProductFromModel,
   newProductIdFromDb,
   newProductIdFromModel,
+  updatedProductFromDb,
+  updatedProductFromModel,
 } = require('../mocks/products.mock');
 
 describe('Testes para a camada Models - PRODUCTS MODELS', function () {
@@ -32,6 +34,19 @@ describe('Testes para a camada Models - PRODUCTS MODELS', function () {
     const filteredProduct = await productsModel.insertProducts(inputData);
     expect(filteredProduct).to.be.a('number');
     expect(filteredProduct).to.deep.equal(newProductIdFromModel);
+  });
+
+  it('Testa se é possível editar um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([updatedProductFromDb]);
+    const updatedProduct = await productsModel.updateProducts(2, 'Updated product');
+    expect(updatedProduct).to.be.an('object');
+    expect(updatedProduct).to.deep.equal(updatedProductFromModel);
+  });
+
+  it('Testa se é possível excluir um produto', async function () {
+    const mockExecute = sinon.stub(connection, 'execute').resolves(undefined);
+    await productsModel.deleteProduct(1);
+    sinon.assert.calledOnce(mockExecute);
   });
 
   afterEach(function () {

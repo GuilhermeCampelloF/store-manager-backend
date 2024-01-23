@@ -64,6 +64,26 @@ const newProductMock = {
   name: 'New product',
 };
 
+const newProductReturn = {
+  status: 'CREATED',
+  data: newProductMock,
+};
+
+const updatedProductFromDb = {
+  id: 2,
+  name: 'Updated product',
+};
+
+const updatedProductFromModel = {
+  id: 2,
+  name: 'Updated product',
+};
+
+const deleteProductReturn = {
+  status: 'NO_CONTENT',
+  data: null,
+};
+
 module.exports = {
   productsFromDb,
   productsFromModel,
@@ -75,4 +95,8 @@ module.exports = {
   newProductIdFromDb,
   newProductIdFromModel,
   newProductMock,
+  updatedProductFromDb,
+  updatedProductFromModel,
+  newProductReturn,
+  deleteProductReturn,
 };

@@ -8,6 +8,8 @@ const { productsFromModel,
   filteredProductFromDb,
   newProductIdFromModel,
   newProductMock,
+  updatedProductFromDb,
+  updatedProductFromModel,
 } = require('../mocks/products.mock');
 
 describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
@@ -41,6 +43,21 @@ describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
     const { status, data } = await productsService.insertProducts(inputData);
     expect(status).to.equal('CREATED');
     expect(data).to.deep.equal(newProductMock);
+  });
+
+  it('Testa se é possível editar um produto cadastrado', async function () {
+    sinon.stub(productsModel, 'updateProducts').resolves(updatedProductFromDb);
+    sinon.stub(productsModel, 'getProductById').resolves(updatedProductFromDb);
+    const { status, data } = await productsService.updateProduct(2, 'Updated product');
+    expect(status).to.equal('SUCCESSFUL');
+    expect(data).to.deep.equal(updatedProductFromModel);
+  });
+
+  it('Testa se é possível deletar um produto cadastrado', async function () {
+    sinon.stub(productsModel, 'deleteProduct').resolves([{}]);
+    const { status, data } = await productsService.deleteProduct(1);
+    expect(status).to.equal('NO_CONTENT');
+    expect(data).to.deep.equal(null);
   });
 
   afterEach(function () {

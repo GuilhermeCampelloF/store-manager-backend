@@ -12,6 +12,9 @@ const { allProductsReturn,
   filteredProductNotFound,
   productsFromModel,
   filteredProductFromModel,
+  newProductReturn,
+  newProductMock,
+  deleteProductReturn,
 } = require('../mocks/products.mock');
 
 describe('Testes para a camada Controllers - PRODUCTS CONTROLLERS', function () {
@@ -53,6 +56,37 @@ describe('Testes para a camada Controllers - PRODUCTS CONTROLLERS', function () 
     await productsController.getProductsById(req, res);
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('Testa se é inserido um produto corretamente', async function () {
+    sinon.stub(productsService, 'insertProducts').resolves(newProductReturn);
+    const req = {
+      params: { },
+      body: { name: 'Updated product' },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.insertNewProduct(req, res);
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newProductMock);
+  });
+
+  it('Testa se é deletado um produto corretamente', async function () {
+    sinon.stub(productsService, 'deleteProduct').resolves(deleteProductReturn);
+    sinon.stub(productsService, 'productById').resolves(filteredProductFromModel);
+    const req = {
+      params: { id: 1 },
+      body: { },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.deleteProduct(req, res);
+    expect(res.status).to.have.been.calledWith(204);
+    expect(res.json).to.have.been.calledWith(null);
   });
   
   afterEach(function () {
