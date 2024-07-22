@@ -44,9 +44,27 @@ const deleteSale = async (id) => {
   return { status: 'NO_CONTENT', data: null };
 };
 
+const updateQuantity = async (saleId, productId, quantity) => {
+  const validationError = validators.validateQuantity(quantity);
+  if (validationError) {
+    return { status: validationError.status, data: { message: validationError.message } };
+  }
+  const sale = await salesModel.getSaleById(saleId);
+  if (!sale || sale.length === 0) {
+    return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  }
+  const product = sale.some((s) => Number(s.productId) === Number(productId));
+  if (!product) {
+    return { status: 'NOT_FOUND', data: { message: 'Product not found in sale' } };
+  }
+  const updatedSale = await salesModel.updateQuantity(saleId, productId, quantity);
+  return { status: 'SUCCESSFUL', data: updatedSale };
+};
+
 module.exports = {
   allSales,
   saleById,
   insertSale,
   deleteSale,
+  updateQuantity,
 };

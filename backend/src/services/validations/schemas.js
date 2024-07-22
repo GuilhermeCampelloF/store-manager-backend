@@ -31,4 +31,5 @@ module.exports = {
   newProductSchema,
   newSaleSchema,
   updateProductSchema,
+  quantitySchema,
 };
