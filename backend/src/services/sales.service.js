@@ -35,12 +35,18 @@ const insertSale = async (sales) => {
   return { status: 'CREATED', data: newSale };
 };
 
+const deleteSale = async (id) => {
+  const sale = await salesModel.getSaleById(id);
+  if (!sale || sale.length === 0) {
+    return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  }
+  await salesModel.deleteSale(id);
+  return { status: 'NO_CONTENT', data: null };
+};
+
 module.exports = {
   allSales,
   saleById,
   insertSale,
+  deleteSale,
 };
-
-// if (!sale || sale.length === 0) {
-//   return { status: 'BAD_REQUEST', data: { message: 'Invalid sale value' } };
-// }
