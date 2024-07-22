@@ -98,6 +98,16 @@ const filteredSaleNotFound = {
   data: { message: 'Sale not found' },
 };
 
+const newSaleReturn = {
+  status: 'CREATED',
+  data: newSaleResultMock,
+};
+
+const deleteSaleReturn = {
+  status: 'NO_CONTENT',
+  data: null,
+};
+
 module.exports = {
   salesFromDb,
   salesFromModel,
@@ -108,4 +118,6 @@ module.exports = {
   filteredSaleNotFound,
   insertNewSaleMock,
   newSaleResultMock,
+  newSaleReturn,
+  deleteSaleReturn,
 };

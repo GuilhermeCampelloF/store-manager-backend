@@ -35,6 +35,37 @@ describe('Testes para a camada Models - SALES MODELS', function () {
     expect(sale).to.deep.equal([]);
   });
 
+  it('Testa se é possível deletar uma venda', async function () {
+    const mockExecute = sinon.stub(connection, 'execute').resolves(undefined);
+    await salesModel.deleteSale(1);
+    sinon.assert.calledOnce(mockExecute);
+  });
+
+  // it('Testa se não é possível deletar venda com id inexistente', async function () {
+  //   sinon.stub(salesModel, 'deleteSale').resolves([]);
+  // });
+
+  it('Testa se é possível atualizar a quantidade de um produto em uma venda', async function () {
+    sinon.stub(connection, 'execute').resolves([[{
+      date: '2024-07-22T19:03:49.000Z',
+      productId: 1,
+      quantity: 5,
+      saleId: 1,
+    }]]);
+    const productId = 1;
+    const saleId = 1;
+    const quantity = 5;
+
+    const updatedSale = await salesModel.updateQuantity(saleId, productId, quantity);
+    expect(updatedSale).to.be.a('object');
+    expect(updatedSale).to.be.deep.equal({
+      date: '2024-07-22T19:03:49.000Z',
+      productId: 1,
+      quantity: 5,
+      saleId: 1,
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

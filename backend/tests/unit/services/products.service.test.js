@@ -60,6 +60,25 @@ describe('Testes para a camada Services - PRODUCTS SERVICES', function () {
     expect(data).to.deep.equal(null);
   });
 
+  it('Testa se não é possível deletar um produto quando passado id inexistente', async function () {
+    sinon.stub(productsModel, 'deleteProduct').resolves([]);
+    const inputData = 999;
+    const { status, data } = await productsService.deleteProduct(inputData);
+    expect(status).to.equal('NOT_FOUND');
+    expect(data).to.deep.equal({ message: 'Product not found' });
+  });
+
+  it('Testa se é possível buscar um produto corretamente', async function () {
+    sinon.stub(productsModel, 'searchProduct').resolves([{
+      id: 1,
+      name: 'Martelo de Thor',
+    }]);
+    const inputData = 'Martelo';
+    const { status, data } = await productsService.searchProduct(inputData);
+    expect(status).to.equal('SUCCESSFUL');
+    expect(data).to.deep.equal([{ id: 1, name: 'Martelo de Thor' }]);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

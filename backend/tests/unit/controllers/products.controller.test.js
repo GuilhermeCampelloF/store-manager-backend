@@ -44,7 +44,7 @@ describe('Testes para a camada Controllers - PRODUCTS CONTROLLERS', function () 
     expect(res.json).to.have.been.calledWith(filteredProductFromModel);
   });
 
-  it('Testa o retorno se filtrado um produto de id inexistente - status 200', async function () {
+  it('Testa o retorno se filtrado um produto de id inexistente - status 404', async function () {
     sinon.stub(productsService, 'productById').resolves(filteredProductNotFound);
     const req = {
       params: { id: 5 },
@@ -87,6 +87,33 @@ describe('Testes para a camada Controllers - PRODUCTS CONTROLLERS', function () 
     await productsController.deleteProduct(req, res);
     expect(res.status).to.have.been.calledWith(204);
     expect(res.json).to.have.been.calledWith(null);
+  });
+
+  it('Testa a busca de um produto corretamente', async function () {
+    sinon.stub(productsService, 'searchProduct').resolves({
+      status: 'SUCCESSFUL',
+      data: [{
+        id: 1,
+        name: 'Martelo de Thor',
+      }],
+    });
+    const req = {
+      query: {
+        q: 'Martelo',
+      },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.searchProduct(req, res);
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith([
+      {
+        id: 1,
+        name: 'Martelo de Thor',
+      },
+    ]);
   });
   
   afterEach(function () {

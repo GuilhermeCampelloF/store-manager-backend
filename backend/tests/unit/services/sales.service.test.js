@@ -40,6 +40,14 @@ describe('Testes para a camada Services - SALES SERVICES', function () {
     expect(data).to.deep.equal(newSaleResultMock);
   });
 
+  it('Testa se é possível deletar uma venda', async function () {
+    sinon.stub(salesModel, 'deleteSale').resolves(null);
+    const inputData = 1;
+    const { status, data } = await salesService.deleteSale(inputData);
+    expect(status).to.equal('NO_CONTENT');
+    expect(data).to.deep.equal(null);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

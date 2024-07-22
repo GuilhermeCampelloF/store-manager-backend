@@ -49,6 +49,16 @@ describe('Testes para a camada Models - PRODUCTS MODELS', function () {
     sinon.assert.calledOnce(mockExecute);
   });
 
+  it('Testa se é possível buscar um produto corretamente', async function () {
+    sinon.stub(connection, 'execute').resolves([{
+      id: 1,
+      name: 'Martelo de Thor',
+    }]);
+    const inputData = 'Martelo';
+    const response = await productsModel.searchProduct(inputData);
+    expect(response).to.deep.equal({ id: 1, name: 'Martelo de Thor' });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
