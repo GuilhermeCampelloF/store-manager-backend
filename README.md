@@ -13,6 +13,9 @@ A aplicação consiste em uma API RESTful de um sistema de gerenciamento de vend
 <summary>🐳 Iniciando a aplicação no Docker Compose</summary>
 
 ```bash
+
+# Após clonar o repositório:
+
 # Instale as dependências
 npm install
 
@@ -32,6 +35,8 @@ docker logs -n 10 -f store_manager
 > ⚠️ Atenção: Ao rodar localmente, a aplicação deverá receber variáveis de ambiente como exemplificado em [`env.example`](./env.example) para poder se comunicar com o serviço de banco de dados.
 
 ```bash
+# Após clonar o repositório:
+
 # Instale as dependências
 npm install
 
