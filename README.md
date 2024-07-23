@@ -30,27 +30,7 @@ docker logs -n 10 -f store_manager
 </details>
 
 <details>
-<summary>🖥️ Iniciando a aplicação localmente</summary>
-
-> ⚠️ Atenção: Ao rodar localmente, a aplicação deverá receber variáveis de ambiente como exemplificado em [`env.example`](./env.example) para poder se comunicar com o serviço de banco de dados.
-
-```bash
-# Após clonar o repositório:
-
-# Instale as dependências
-npm install
-
-# Inicie apenas o serviço `db` no compose
-docker-compose up -d db
-
-# Inicie a aplicação em modo de desenvolvimento
-npm run dev:local
-```
-
-</details>
-
-<details>
-<summary>🛠 Rodando testes</summary>
+<summary>🖥️ Rodando testes</summary>
 
 ```bash
 #### Comandos dos testes com mocha
