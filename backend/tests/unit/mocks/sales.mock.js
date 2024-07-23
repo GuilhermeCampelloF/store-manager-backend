@@ -83,6 +83,16 @@ const newSaleResultMock = {
   ],
 };
 
+const updateQuantityMock = {
+  status: 'SUCCESSFUL',
+  data: {
+    date: dateTest,
+    productId: 2,
+    quantity: 50,
+    saleId: 1,
+  },
+};
+
 const allSalesReturn = {
   status: 'SUCCESSFUL',
   data: salesFromDb,
@@ -120,4 +130,5 @@ module.exports = {
   newSaleResultMock,
   newSaleReturn,
   deleteSaleReturn,
+  updateQuantityMock,
 };

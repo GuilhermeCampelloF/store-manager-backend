@@ -16,6 +16,7 @@ const { salesFromModel,
   insertNewSaleMock,
   newSaleResultMock,
   deleteSaleReturn,
+  updateQuantityMock,
 } = require('../mocks/sales.mock');
 
 describe('Testes para a camada Controllers - SALES CONTROLLER', function () {
@@ -88,6 +89,31 @@ describe('Testes para a camada Controllers - SALES CONTROLLER', function () {
     await salesController.deleteSale(req, res);
     expect(res.status).to.have.been.calledWith(204);
     expect(res.json).to.have.been.calledWith(null);
+  });
+
+  it('Testa se é possível atualizar a quantidade de um produto em uma venda corretamente', async function () {
+    sinon.stub(salesService, 'updateQuantity').resolves(updateQuantityMock);
+    const req = {
+      params: { 
+        saleId: 1,
+        productId: 2,
+      },
+      body: { 
+        quantity: 50,
+      },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await salesController.updateQuantity(req, res);
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({
+      date: '2024-01-19T12:47:03.000Z',
+      productId: 2,
+      quantity: 50,
+      saleId: 1,
+    });
   });
 
   afterEach(function () {

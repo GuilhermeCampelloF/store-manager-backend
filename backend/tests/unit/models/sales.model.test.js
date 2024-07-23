@@ -41,10 +41,6 @@ describe('Testes para a camada Models - SALES MODELS', function () {
     sinon.assert.calledOnce(mockExecute);
   });
 
-  // it('Testa se não é possível deletar venda com id inexistente', async function () {
-  //   sinon.stub(salesModel, 'deleteSale').resolves([]);
-  // });
-
   it('Testa se é possível atualizar a quantidade de um produto em uma venda', async function () {
     sinon.stub(connection, 'execute').resolves([[{
       date: '2024-07-22T19:03:49.000Z',
